@@ -1,0 +1,686 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SIGNET AI</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.0/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.0/ScrollTrigger.min.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap');
+
+        :root {
+            --primary: #22C55E;
+            --primary-dark: #16A34A;
+            --secondary: #0075FF;
+            --dark: #0A0B0D;
+            --darker: #020617;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--darker);
+            color: white;
+        }
+
+        .chakra {
+            font-family: 'Chakra Petch', sans-serif;
+        }
+
+        .glow-text {
+            color: var(--primary);
+            text-shadow: 0 0 20px rgba(34, 197, 94, 0.4);
+        }
+
+        .gradient-border {
+            position: relative;
+            background: linear-gradient(var(--darker), var(--darker)) padding-box,
+                        linear-gradient(135deg, var(--primary), var(--secondary)) border-box;
+            border: 1px solid transparent;
+        }
+
+        .glassmorphic {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .token-card {
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            transform: translateZ(0);
+            background: rgba(34, 197, 94, 0.02);
+        }
+
+        .token-card:hover {
+            transform: translateY(-5px);
+            background: rgba(34, 197, 94, 0.03);
+        }
+
+        .token-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+                90deg,
+                transparent,
+                rgba(34, 197, 94, 0.1),
+                transparent
+            );
+            transition: 0.5s;
+        }
+
+        .token-card:hover::before {
+            left: 100%;
+        }
+
+        .gradient-banner {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .gradient-banner::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            background: linear-gradient(45deg, rgba(34, 197, 94, 0.1), rgba(0, 117, 255, 0.1));
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .token-card:hover .gradient-banner::after {
+            opacity: 1;
+        }
+
+        .glow-effect {
+            position: relative;
+        }
+
+        .glow-effect::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            z-index: -1;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            border-radius: 0.5rem;
+        }
+
+        .token-card:hover .glow-effect::before {
+            opacity: 0.3;
+        }
+
+        .icon-container {
+            transition: transform 0.3s ease;
+        }
+
+        .token-card:hover .icon-container {
+            transform: scale(1.1);
+        }
+
+        .feature-card {
+            background: linear-gradient(135deg, rgba(34, 197, 94, 0.05), transparent);
+            border: 1px solid rgba(34, 197, 94, 0.1);
+            transition: all 0.3s;
+        }
+
+        .feature-card:hover {
+            border-color: rgba(34, 197, 94, 0.3);
+            transform: translateY(-5px);
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .animate-fadeIn {
+            animation: fadeIn 0.6s ease-out forwards;
+        }
+
+        .roadmap-item {
+            position: relative;
+            padding-left: 2rem;
+        }
+
+        .roadmap-item::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 2px;
+            height: 100%;
+            background: linear-gradient(to bottom, var(--primary), var(--secondary));
+        }
+
+        .roadmap-item::after {
+            content: '';
+            position: absolute;
+            left: -4px;
+            top: 0;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: var(--primary);
+        }
+    </style>
+</head>
+<body class="bg-[#020617]">
+    <!-- Navigation -->
+    <nav class="fixed w-full z-50 glassmorphic">
+        <div class="container mx-auto px-6">
+            <div class="flex items-center justify-between h-20">
+                <div class="flex items-center gap-8">
+                    <div class="chakra text-2xl font-bold text-white">
+                        SIGNET<span class="glow-text">AI</span>
+                    </div>
+                </div>
+                <div class="hidden md:flex items-center space-x-12">
+                    <a href="#features" class="hover:text-green-400 transition-colors">Platform</a>
+                    <a href="#token" class="hover:text-green-400 transition-colors">Token</a>
+                    <a href="#roadmap" class="hover:text-green-400 transition-colors">Roadmap</a>
+                    <a href="configure.html">
+                        <button class="gradient-border px-6 py-2 rounded-full hover:scale-105 transition-transform">
+                            Launch App
+                        </button>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="min-h-screen flex items-center justify-center pt-20">
+        <div class="max-w-screen-xl mx-auto px-6 text-center">
+            <h1 class="text-6xl md:text-7xl font-bold mb-8">
+                The Future of 
+                <span class="glow-text">AI-Powered</span> 
+                Signals
+            </h1>
+            <p class="text-xl text-gray-300 max-w-2xl mx-auto mb-12">
+                With SIGNET AI, create and configure signal bots that scan Solana for the best trading opportunities, deliver actionable calls, and track real-time performance metrics.  Monetize by listing your bots on our marketplace, where users can subscribe to your bot's signals for a monthly fee paid in $SIGNET.
+            </p>
+            <div class="flex flex-wrap justify-center gap-6">
+                <a href="configure.html">
+                    <button class="bg-gradient-to-r from-green-500 to-blue-500 px-8 py-4 rounded-lg font-semibold hover:scale-105 transition-transform">
+                        Make your BOT
+                    </button>
+                </a>
+                <a href="marketplace.html">
+                    <button class="gradient-border px-8 py-4 rounded-lg font-semibold hover:scale-105 transition-transform">
+                        Go to MarketPlace 
+                    </button>
+                </a>
+             </div>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="relative py-20 overflow-hidden">
+        <!-- Diagonal Divider Top -->
+        <div class="absolute top-0 left-0 right-0 h-20 bg-[#020617]" style="clip-path: polygon(0 0, 100% 0, 100% 100%, 0 0);"></div>
+        
+        <!-- Content with gradient background -->
+        <div class="bg-gradient-to-r from-green-900/20 to-blue-900/20 relative">
+            <div class="container mx-auto px-6 py-20">
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                    <div class="stat-card glassmorphic rounded-xl p-6 text-center transform hover:scale-105 transition-all duration-300">
+                        <div class="text-4xl font-bold glow-text mb-2">100ms</div>
+                        <div class="text-gray-400">Signal Detection Speed</div>
+                    </div>
+                    <div class="stat-card glassmorphic rounded-xl p-6 text-center transform hover:scale-105 transition-all duration-300">
+                        <div class="text-4xl font-bold glow-text mb-2">1M+</div>
+                        <div class="text-gray-400">Blockchain Events Scanned Daily</div>
+                    </div>
+                    <div class="stat-card glassmorphic rounded-xl p-6 text-center transform hover:scale-105 transition-all duration-300">
+                        <div class="text-4xl font-bold glow-text mb-2">99.9%</div>
+                        <div class="text-gray-400">Signal Accuracy</div>
+                    </div>
+                    <div class="stat-card glassmorphic rounded-xl p-6 text-center transform hover:scale-105 transition-all duration-300">
+                        <div class="text-4xl font-bold glow-text mb-2">24/7</div>
+                        <div class="text-gray-400">Real-Time Monitoring</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Diagonal Divider Bottom -->
+<div class="absolute bottom-0 left-0 right-0 h-20 bg-[#020617]" style="clip-path: polygon(0 100%, 100% 0, 100% 100%, 0 100%);"></div>
+</section>
+<section id="features" class="py-32">
+    <div class="container mx-auto px-6">
+        <div class="text-center mb-20">
+            <h2 class="text-5xl font-bold mb-6">Master Blockchain Insights</h2>
+            <p class="text-gray-400 max-w-2xl mx-auto">
+                Harness advanced technology to create and monetize signal bots on Solana.
+            </p>
+        </div>
+        
+        <div class="grid md:grid-cols-3 gap-8">
+            <div class="feature-card p-8 rounded-lg">
+                <div class="text-5xl mb-6">📈</div>
+                <h3 class="text-xl font-bold mb-4">Build Signal Bots</h3>
+                <p class="text-gray-400">Easily configure bots to scan the blockchain, detect opportunities, 
+                and make real-time coin calls.</p>
+            </div>
+            
+            <div class="feature-card p-8 rounded-lg">
+                <div class="text-5xl mb-6">📊</div>
+                <h3 class="text-xl font-bold mb-4">Track & Optimize</h3>
+                <p class="text-gray-400">Monitor your bots performance with detailed stats like win/loss ratios 
+                and accuracy metrics.</p>
+            </div>
+            
+            <div class="feature-card p-8 rounded-lg">
+                <div class="text-5xl mb-6">💰</div>
+                <h3 class="text-xl font-bold mb-4">Monetize Your Expertise</h3>
+                <p class="text-gray-400">List your bots on the marketplace, set subscription prices in $SIGNET, 
+                and earn from your signals.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+        <!-- Wave Pattern Bottom -->
+        <div class="absolute bottom-0 left-0 w-full">
+            <svg class="w-full" viewBox="0 0 1440 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M1440 0v120H0V0c266.7 40 533.3 60 800 60s533.3-20 800-60z" fill="url(#gradient-2)"/>
+                <defs>
+                    <linearGradient id="gradient-2" x1="0" y1="0" x2="1440" y2="0" gradientUnits="userSpaceOnUse">
+                        <stop stop-color="#22C55E" stop-opacity="0.1"/>
+                        <stop offset="1" stop-color="#0075FF" stop-opacity="0.1"/>
+                    </linearGradient>
+                </defs>
+            </svg>
+        </div>
+    </section>
+
+    <!-- Token Economy with Hexagon Pattern -->
+    <section id="token" class="relative min-h-screen flex items-center justify-center py-20">
+        <!-- Hexagon Pattern Background -->
+        <div class="absolute inset-0 overflow-hidden pointer-events-none">
+            <div class="absolute w-full h-full">
+                <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
+                    <defs>
+                        <pattern id="hexagons" width="50" height="43.4" patternUnits="userSpaceOnUse" patternTransform="scale(5)">
+                            <path d="M24.8 22.38L37.2 32.4v20.05L24.8 62.5l-12.4-10.04V32.4L24.8 22.38z" 
+                                  stroke="#22C55E" 
+                                  stroke-width="0.1" 
+                                  fill="none" 
+                                  opacity="0.1"/>
+                        </pattern>
+                    </defs>
+                    <rect width="100%" height="100%" fill="url(#hexagons)"/>
+                </svg>
+            </div>
+        </div>
+
+        <div class="max-w-screen-xl mx-auto px-4 relative">
+            <!-- Header -->
+            <div class="text-center mb-16 animate-fadeIn" style="animation-delay: 0.2s">
+                <h1 class="text-5xl font-bold text-white mb-4">$SIGNET Token Economy</h1>
+                <p class="text-gray-400 text-xl max-w-2xl mx-auto">
+                    Fuel the next generation of blockchain insights with $SIGNET—your gateway to creating, earning, and innovating in our signal ecosystem.
+                </p>
+            </div>
+        
+            <!-- Cards Stack -->
+            <div class="max-w-2xl mx-auto space-y-6">
+                <!-- Performance-Based Rewards -->
+                <article class="token-card p-6 rounded-lg border border-[#22C55E]/20 animate-fadeIn" style="animation-delay: 0.4s">
+                    <div class="gradient-banner rounded-lg h-16 bg-gradient-to-r from-[#065F32] to-[#094166] flex items-center relative overflow-hidden">
+                        <div class="icon-container absolute left-4">
+                            <span class="text-[#22C55E] text-2xl">📊</span>
+                        </div>
+                        <div class="absolute inset-0 bg-gradient-to-r from-transparent via-[#22C55E]/5 to-transparent transform -translate-x-full animate-shimmer"></div>
+                    </div>
+                    <div class="glow-effect">
+                        <h2 class="text-2xl font-bold text-white mt-6 mb-2">Performance-Based Rewards</h2>
+                        <p class="text-gray-400">Earn $SIGNET when your bots generate high-performing signals. The top performing bots are showcased at the top of the leaderboard, giving your bot exposure and credibility.</p>
+                    </div>
+                </article>
+        
+                <!-- Marketplace Access -->
+                <article class="token-card p-6 rounded-lg border border-[#22C55E]/20 animate-fadeIn" style="animation-delay: 0.6s">
+                    <div class="gradient-banner rounded-lg h-16 bg-gradient-to-r from-[#065F32] to-[#094166] flex items-center relative overflow-hidden">
+                        <div class="icon-container absolute left-4">
+                            <span class="text-[#22C55E] text-2xl">🛒</span>
+                        </div>
+                        <div class="absolute inset-0 bg-gradient-to-r from-transparent via-[#22C55E]/5 to-transparent transform -translate-x-full animate-shimmer"></div>
+                    </div>
+                    <div class="glow-effect">
+                        <h2 class="text-2xl font-bold text-white mt-6 mb-2">Marketplace Access</h2>
+                        <p class="text-gray-400">Monetize your bots by listing them on the marketplace. Set subscription prices in $SIGNET, allowing users to access your bot’s calls while you earn passive income.</p>
+                    </div>
+                </article>
+        
+                <!-- Premium Features -->
+                <article class="token-card p-6 rounded-lg border border-[#22C55E]/20 animate-fadeIn" style="animation-delay: 0.8s">
+                    <div class="gradient-banner rounded-lg h-16 bg-gradient-to-r from-[#065F32] to-[#094166] flex items-center relative overflow-hidden">
+                        <div class="icon-container absolute left-4">
+                            <span class="text-[#22C55E] text-2xl">⚡</span>
+                        </div>
+                        <div class="absolute inset-0 bg-gradient-to-r from-transparent via-[#22C55E]/5 to-transparent transform -translate-x-full animate-shimmer"></div>
+                    </div>
+                    <div class="glow-effect">
+                        <h2 class="text-2xl font-bold text-white mt-6 mb-2">Premium Features</h2>
+                        <p class="text-gray-400">Pay $SIGNET to access advanced tools, such as real-time blockchain insights, in-depth performance metrics, and custom signal settings for ultimate precision.</p>
+                    </div>
+                </article>
+            </div>
+        </div>
+        
+    </section>
+        
+
+    <!-- Roadmap Section with Cyber Grid -->
+    <section id="roadmap" class="relative py-32">
+        <!-- Cyber Grid Background -->
+        <div class="absolute inset-0 overflow-hidden pointer-events-none">
+            <div class="absolute w-full h-full" style="background-image: 
+                linear-gradient(to right, rgba(34, 197, 94, 0.05) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(34, 197, 94, 0.05) 1px, transparent 1px);
+                background-size: 50px 50px;">
+            </div>
+            <div class="absolute inset-0 bg-gradient-to-b from-[#020617] via-transparent to-[#020617]"></div>
+        </div>
+
+        <!-- Tilted Line Divider Top -->
+        <div class="absolute top-0 left-0 right-0 h-32 overflow-hidden">
+            <div class="absolute inset-0" style="background: linear-gradient(135deg, #22C55E 0%, #0075FF 100%); opacity: 0.1; transform: skewY(-3deg); transform-origin: 0;"></div>
+        </div>
+
+        <div class="container mx-auto px-6 relative">
+            <!-- Roadmap Content -->
+            <div class="text-center mb-20">
+                <h2 class="text-5xl font-bold mb-6">The Future of $SIGNET: A Global Trading Powerhouse</h2>
+                <p class="text-xl text-gray-400 max-w-3xl mx-auto">
+                    A transformative roadmap to establish $SIGNET as the ultimate trading platform—empowering traders worldwide with cutting-edge AI and a thriving social ecosystem.
+                </p>
+            </div>
+        
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <!-- Phase 1 -->
+                <div class="roadmap-item gradient-border rounded-2xl p-8 relative bg-opacity-50">
+                    <div class="absolute top-4 right-4">
+                        <span class="text-sm text-green-400">PHASE 1</span>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-4">Foundation Achieved</h3>
+                    <p class="text-gray-400 mb-4">Completed</p>
+                    <ul class="space-y-3 text-gray-300">
+                        <li class="flex items-start gap-2">
+                            <svg class="w-5 h-5 mt-1 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                            </svg>
+                            <span>Launched $SIGNET token and tokenomics framework</span>
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <svg class="w-5 h-5 mt-1 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                            </svg>
+                            <span>Released fully functional signal bot creation and marketplace</span>
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <svg class="w-5 h-5 mt-1 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                            </svg>
+                            <span>Enabled real-time bot performance tracking and monetization</span>
+                        </li>
+                    </ul>
+                </div>
+        
+                <!-- Phase 2 -->
+                <div class="roadmap-item gradient-border rounded-2xl p-8 relative">
+                    <div class="absolute top-4 right-4">
+                        <span class="text-sm text-blue-400">PHASE 2</span>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-4">Global Social Platform</h3>
+                    <p class="text-gray-400 mb-4">Months 6-12</p>
+                    <ul class="space-y-3 text-gray-300">
+                        <li class="flex items-start gap-2">
+                            <svg class="w-5 h-5 mt-1 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                            </svg>
+                            <span>Launch interactive social features, including profiles, leaderboards, and reviews</span>
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <svg class="w-5 h-5 mt-1 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                            </svg>
+                            <span>Build a referral system to incentivize global user onboarding</span>
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <svg class="w-5 h-5 mt-1 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                            </svg>
+                            <span>Integrate community-driven signal rankings for bot discovery</span>
+                        </li>
+                    </ul>
+                </div>
+        
+                <!-- Phase 3 -->
+                <div class="roadmap-item gradient-border rounded-2xl p-8 relative">
+                    <div class="absolute top-4 right-4">
+                        <span class="text-sm text-purple-400">PHASE 3</span>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-4">AI Domination</h3>
+                    <p class="text-gray-400 mb-4">Year 1-2</p>
+                    <ul class="space-y-3 text-gray-300">
+                        <li class="flex items-start gap-2">
+                            <svg class="w-5 h-5 mt-1 text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                            </svg>
+                            <span>Introduce AI-powered trading signals with predictive capabilities</span>
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <svg class="w-5 h-5 mt-1 text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                            </svg>
+                            <span>Develop machine learning models to enhance bot performance</span>
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <svg class="w-5 h-5 mt-1 text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                            </svg>
+                            <span>Create a proprietary AI engine that continuously adapts to market conditions</span>
+                        </li>
+                    </ul>
+                </div>
+        
+                <!-- Phase 4 -->
+                <div class="roadmap-item gradient-border rounded-2xl p-8 relative">
+                    <div class="absolute top-4 right-4">
+                        <span class="text-sm text-pink-400">PHASE 4</span>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-4">The Global Trading Network</h3>
+                    <p class="text-gray-400 mb-4">Year 2+</p>
+                    <ul class="space-y-3 text-gray-300">
+                        <li class="flex items-start gap-2">
+                            <svg class="w-5 h-5 mt-1 text-pink-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                            </svg>
+                            <span>Establish $SIGNET as the essential tool for global traders</span>
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <svg class="w-5 h-5 mt-1 text-pink-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                            </svg>
+                            <span>Expand into emerging markets with targeted adoption campaigns</span>
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <svg class="w-5 h-5 mt-1 text-pink-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                            </svg>
+                            <span>Integrate decentralized governance for platform evolution</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        
+        
+
+            <!-- Future Phases Button -->
+            <div class="text-center mt-16">
+                <a href="configure.html">
+                    <button class="gradient-border px-8 py-4 rounded-lg font-semibold hover:scale-105 transition-transform">
+                        Create Your BOT
+                    </button>
+                </a>
+             </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-16 border-t border-gray-800">
+        <div class="container mx-auto px-6">
+            <div class="grid grid-cols-2 md:grid-cols-5 gap-12">
+                <div class="col-span-2 md:col-span-1">
+                    <div class="text-2xl font-bold mb-6">
+                        SIGNET<span class="glow-text">AI</span>
+                    </div>
+                    <p class="text-gray-400">The future of AI signal bots</p>
+                </div>
+                <div>
+                    <h4 class="font-bold mb-4">Quick Links</h4>
+                    <ul class="space-y-2 text-gray-400">
+                        <li><a href="#features" class="hover:text-green-400 transition-colors">Platform</a></li>
+                        <li><a href="#token" class="hover:text-green-400 transition-colors">Token</a></li>
+                        <li><a href="#roadmap" class="hover:text-green-400 transition-colors">Roadmap</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-bold mb-4">Community</h4>
+                    <ul class="space-y-2 text-gray-400">
+                        <li><a href="#" class="hover:text-green-400 transition-colors">Twitter</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-bold mb-4">Get Started</h4>
+                    <ul class="space-y-2 text-gray-400">
+                        <li><a href="configure.html" class="hover:text-green-400 transition-colors">Create your bot</a></li>
+                        <li><a href="marketplace.html" class="hover:text-green-400 transition-colors">Go to Marketplace</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+     </footer>
+
+    <script>
+        // Initialize GSAP
+        gsap.registerPlugin(ScrollTrigger);
+
+        // Stats Section Animation
+        const statCards = document.querySelectorAll('.stat-card');
+        statCards.forEach((card, index) => {
+            gsap.from(card, {
+                y: 100,
+                opacity: 0,
+                duration: 0.8,
+                delay: index * 0.2,
+                scrollTrigger: {
+                    trigger: card,
+                    start: "top bottom-=100",
+                    toggleActions: "play none none reverse"
+                }
+            });
+        });
+
+        // Features Section Animation
+        const featureCards = document.querySelectorAll('.feature-card');
+        featureCards.forEach((card, index) => {
+            gsap.from(card, {
+                x: index % 2 === 0 ? -100 : 100,
+                opacity: 0,
+                duration: 1,
+                scrollTrigger: {
+                    trigger: card,
+                    start: "top bottom-=100",
+                    toggleActions: "play none none reverse"
+                }
+            });
+        });
+
+        // Super simple token animations
+        gsap.from(".card1", {
+            x: -100,
+            opacity: 0,
+            duration: 1,
+            scrollTrigger: {
+                trigger: "#token",
+                start: "top center",
+            }
+        });
+
+        gsap.from(".card2", {
+            x: -100,
+            opacity: 0,
+            duration: 1,
+            delay: 0.3,
+            scrollTrigger: {
+                trigger: "#token",
+                start: "top center",
+            }
+        });
+
+        gsap.from(".card3", {
+            x: 100,
+            opacity: 0,
+            duration: 1,
+            delay: 0.6,
+            scrollTrigger: {
+                trigger: "#token",
+                start: "top center",
+            }
+        });
+
+        // Shimmer animation for token cards
+        const shimmerElements = document.querySelectorAll('.animate-shimmer');
+        shimmerElements.forEach(element => {
+            gsap.to(element, {
+                x: '100%',
+                duration: 1.5,
+                repeat: -1,
+                ease: "power1.inOut",
+                delay: Math.random()
+            });
+        });
+
+        // Roadmap items animation (existing)
+        const roadmapItems = document.querySelectorAll('.roadmap-item');
+        roadmapItems.forEach((item, index) => {
+            gsap.from(item, {
+                opacity: 0,
+                x: -50,
+                duration: 0.8,
+                delay: index * 0.2,
+                scrollTrigger: {
+                    trigger: item,
+                    start: "top bottom-=100",
+                    toggleActions: "play none none reverse"
+                }
+            });
+        });
+    </script>
+    </script>
+</body>
+</html>

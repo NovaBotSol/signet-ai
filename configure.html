@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SIGNET AI - Waitlist</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap');
+
+        :root {
+            --primary: #22C55E;
+            --primary-dark: #16A34A;
+            --secondary: #0075FF;
+            --dark: #0A0B0D;
+            --darker: #020617;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--darker);
+            color: white;
+        }
+
+        .chakra {
+            font-family: 'Chakra Petch', sans-serif;
+        }
+
+        .glow-text {
+            color: var(--primary);
+            text-shadow: 0 0 20px rgba(34, 197, 94, 0.4);
+        }
+
+        .glassmorphic {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .gradient-border {
+            background: linear-gradient(var(--darker), var(--darker)) padding-box,
+                        linear-gradient(135deg, var(--primary), var(--secondary)) border-box;
+            border: 1px solid transparent;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="fixed w-full z-50">
+        <div class="glassmorphic">
+            <div class="container mx-auto px-6">
+                <div class="flex items-center justify-between h-20">
+                    <div class="flex items-center gap-8">
+                        <a href="index.html">
+                            <div class="chakra text-2xl font-bold text-white">
+                                SIGNET<span class="glow-text">AI</span>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="hidden md:flex items-center space-x-12">
+                        <a href="marketplace.html">
+                            <button class="bg-gradient-to-r from-green-600 to-blue-600 px-6 py-2 rounded-full hover:opacity-90 transition-opacity">
+                                Marketplace
+                            </button>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+     </nav>
+
+    <!-- Waitlist Section -->
+    <section class="min-h-screen pt-32">
+        <div class="container mx-auto px-6">
+            <div class="max-w-2xl mx-auto">
+                <div class="gradient-border rounded-2xl p-8 bg-[#020617]">
+                    <!-- Alert Icon and Header -->
+                    <div class="flex items-start gap-4 mb-8">
+                        <div class="p-3 bg-red-500/10 rounded-lg">
+                            <svg class="w-6 h-6 text-red-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+                            </svg>
+                        </div>
+                        <div>
+                            <h2 class="chakra text-3xl font-bold mb-4">Bot Creation Temporarily Paused</h2>
+                            <p class="text-gray-400">Due to overwhelming demand and to maintain optimal system performance, we've temporarily paused new bot creation. Join our waitlist to be notified when spots become available.</p>
+                        </div>
+                    </div>
+
+                    <!-- Stats -->
+                    <div class="grid grid-cols-3 gap-6 mb-8">
+                        <div class="glassmorphic rounded-xl p-6 text-center">
+                            <div class="text-3xl font-bold glow-text mb-2">20</div>
+                            <div class="text-gray-400">Active Bots</div>
+                        </div>
+                        <div class="glassmorphic rounded-xl p-6 text-center">
+                            <div class="text-3xl font-bold glow-text mb-2">98%</div>
+                            <div class="text-gray-400">Network Load</div>
+                        </div>
+                        <div class="glassmorphic rounded-xl p-6 text-center">
+                            <div class="text-3xl font-bold glow-text mb-2">426</div>
+                            <div class="text-gray-400">Waitlist</div>
+                        </div>
+                    </div>
+
+                    <!-- Waitlist Form -->
+                    <div class="bg-black/30 rounded-xl p-8 border border-green-500/20">
+                        <h3 class="chakra text-2xl font-bold mb-4">Join the Waitlist</h3>
+                        <p class="text-gray-400 mb-6">Enter your Telegram username to be notified when bot creation reopens.</p>
+                        
+                        <form id="waitlistForm" class="space-y-6">
+                            <div>
+                                <label for="telegram" class="block text-sm font-medium text-gray-300 mb-2">
+                                    Telegram Username
+                                </label>
+                                <input 
+                                    type="text" 
+                                    id="telegram" 
+                                    placeholder="@username"
+                                    class="w-full p-4 bg-black/50 border border-green-500/20 rounded-lg focus:border-green-500/50 focus:outline-none text-white placeholder-gray-500"
+                                >
+                            </div>
+                            <button 
+                                type="submit"
+                                class="w-full bg-gradient-to-r from-green-600 to-blue-600 text-white py-4 rounded-lg font-medium hover:opacity-90 transition-opacity"
+                            >
+                                Join Waitlist
+                            </button>
+                        </form>
+
+                        <!-- Success Message (Initially Hidden) -->
+                        <div id="successMessage" class="hidden text-center py-8">
+                            <div class="w-16 h-16 bg-green-500/10 rounded-full flex items-center justify-center mx-auto mb-4">
+                                <svg class="w-8 h-8 text-green-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                                </svg>
+                            </div>
+                            <h3 class="text-xl font-semibold mb-2">You're on the List!</h3>
+                            <p class="text-gray-400">We'll notify you when bot creation reopens.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        document.getElementById('waitlistForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const telegram = document.getElementById('telegram').value;
+            if (!telegram.startsWith('@')) {
+                alert('Username must start with @');
+                return;
+            }
+            this.style.display = 'none';
+            document.getElementById('successMessage').style.display = 'block';
+        });
+    </script>
+</body>
+</html>
