@@ -181,6 +181,36 @@
             border-radius: 50%;
             background: var(--primary);
         }
+
+        /* New animation styles for section titles and descriptions */
+        .section-title {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        
+        .section-description {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        
+        .fade-in-title {
+            animation: fadeInUp 0.8s ease forwards;
+        }
+        
+        .fade-in-description {
+            animation: fadeInUp 0.8s ease forwards 0.2s;
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
     </style>
 </head>
 <body class="bg-[#020617]">
@@ -210,13 +240,13 @@
     <!-- Hero Section -->
     <section class="min-h-screen flex items-center justify-center pt-20">
         <div class="max-w-screen-xl mx-auto px-6 text-center">
-            <h1 class="text-6xl md:text-7xl font-bold mb-8">
+            <h1 class="text-6xl md:text-7xl font-bold mb-8 section-title">
                 The Future of 
                 <span class="glow-text">AI-Powered</span> 
                 Signals
             </h1>
-            <p class="text-xl text-gray-300 max-w-2xl mx-auto mb-12">
-                With SIGNET AI, create and configure signal bots that scan Solana for the best trading opportunities, deliver actionable calls, and track real-time performance metrics.  Monetize by listing your bots on our marketplace, where users can subscribe to your bot's signals for a monthly fee paid in $SIGNET.
+            <p class="text-xl text-gray-300 max-w-2xl mx-auto mb-12 section-description">
+                With SIGNET AI, create and configure signal bots that scan Solana for the best trading opportunities, deliver actionable calls, and track real-time performance metrics. Monetize by listing your bots on our marketplace, where users can subscribe to your bot's signals for a monthly fee paid in $SIGNET.
             </p>
             <div class="flex flex-wrap justify-center gap-6">
                 <a href="configure.html">
@@ -229,7 +259,7 @@
                         Go to MarketPlace 
                     </button>
                 </a>
-             </div>
+            </div>
         </div>
     </section>
 
@@ -241,6 +271,12 @@
         <!-- Content with gradient background -->
         <div class="bg-gradient-to-r from-green-900/20 to-blue-900/20 relative">
             <div class="container mx-auto px-6 py-20">
+                <div class="text-center mb-16">
+                    <h2 class="text-5xl font-bold mb-6 section-title">Platform Statistics</h2>
+                    <p class="text-gray-400 text-xl max-w-2xl mx-auto section-description">
+                        Real-time metrics showcasing our platform's performance and capabilities.
+                    </p>
+                </div>
                 <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
                     <div class="stat-card glassmorphic rounded-xl p-6 text-center transform hover:scale-105 transition-all duration-300">
                         <div class="text-4xl font-bold glow-text mb-2">100ms</div>
@@ -263,56 +299,56 @@
         </div>
         
         <!-- Diagonal Divider Bottom -->
-<div class="absolute bottom-0 left-0 right-0 h-20 bg-[#020617]" style="clip-path: polygon(0 100%, 100% 0, 100% 100%, 0 100%);"></div>
-</section>
-<section id="features" class="py-32">
-    <div class="container mx-auto px-6">
-        <div class="text-center mb-20">
-            <h2 class="text-5xl font-bold mb-6">Master Blockchain Insights</h2>
-            <p class="text-gray-400 max-w-2xl mx-auto">
-                Harness advanced technology to create and monetize signal bots on Solana.
-            </p>
-        </div>
-        
-        <div class="grid md:grid-cols-3 gap-8">
-            <div class="feature-card p-8 rounded-lg">
-                <div class="text-5xl mb-6">📈</div>
-                <h3 class="text-xl font-bold mb-4">Build Signal Bots</h3>
-                <p class="text-gray-400">Easily configure bots to scan the blockchain, detect opportunities, 
-                and make real-time coin calls.</p>
+        <div class="absolute bottom-0 left-0 right-0 h-20 bg-[#020617]" style="clip-path: polygon(0 100%, 100% 0, 100% 100%, 0 100%);"></div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features" class="py-32">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-20">
+                <h2 class="text-5xl font-bold mb-6 section-title">Master Blockchain Insights</h2>
+                <p class="text-gray-400 max-w-2xl mx-auto section-description">
+                    Harness advanced technology to create and monetize signal bots on Solana.
+                </p>
             </div>
             
-            <div class="feature-card p-8 rounded-lg">
-                <div class="text-5xl mb-6">📊</div>
-                <h3 class="text-xl font-bold mb-4">Track & Optimize</h3>
-                <p class="text-gray-400">Monitor your bots performance with detailed stats like win/loss ratios 
-                and accuracy metrics.</p>
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="feature-card p-8 rounded-lg">
+                    <div class="text-5xl mb-6">📈</div>
+                    <h3 class="text-xl font-bold mb-4">Build Signal Bots</h3>
+                    <p class="text-gray-400">Easily configure bots to scan the blockchain, detect opportunities, 
+                    and make real-time coin calls.</p>
+                </div>
+                
+                <div class="feature-card p-8 rounded-lg">
+                    <div class="text-5xl mb-6">📊</div>
+                    <h3 class="text-xl font-bold mb-4">Track & Optimize</h3>
+                    <p class="text-gray-400">Monitor your bots performance with detailed stats like win/loss ratios 
+                    and accuracy metrics.</p>
+                </div>
+                
+                <div class="feature-card p-8 rounded-lg">
+                    <div class="text-5xl mb-6">💰</div>
+                    <h3 class="text-xl font-bold mb-4">Monetize Your Expertise</h3>
+                    <p class="text-gray-400">List your bots on the marketplace, set subscription prices in $SIGNET, 
+                    and earn from your signals.</p>
+                </div>
             </div>
-            
-            <div class="feature-card p-8 rounded-lg">
-                <div class="text-5xl mb-6">💰</div>
-                <h3 class="text-xl font-bold mb-4">Monetize Your Expertise</h3>
-                <p class="text-gray-400">List your bots on the marketplace, set subscription prices in $SIGNET, 
-                and earn from your signals.</p>
-            </div>
-        </div>
-    </div>
-</section>
-
-
-        <!-- Wave Pattern Bottom -->
-        <div class="absolute bottom-0 left-0 w-full">
-            <svg class="w-full" viewBox="0 0 1440 120" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M1440 0v120H0V0c266.7 40 533.3 60 800 60s533.3-20 800-60z" fill="url(#gradient-2)"/>
-                <defs>
-                    <linearGradient id="gradient-2" x1="0" y1="0" x2="1440" y2="0" gradientUnits="userSpaceOnUse">
-                        <stop stop-color="#22C55E" stop-opacity="0.1"/>
-                        <stop offset="1" stop-color="#0075FF" stop-opacity="0.1"/>
-                    </linearGradient>
-                </defs>
-            </svg>
         </div>
     </section>
+
+    <!-- Wave Pattern Bottom -->
+    <div class="absolute bottom-0 left-0 w-full">
+        <svg class="w-full" viewBox="0 0 1440 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M1440 0v120H0V0c266.7 40 533.3 60 800 60s533.3-20 800-60z" fill="url(#gradient-2)"/>
+            <defs>
+                <linearGradient id="gradient-2" x1="0" y1="0" x2="1440" y2="0" gradientUnits="userSpaceOnUse">
+                    <stop stop-color="#22C55E" stop-opacity="0.1"/>
+                    <stop offset="1" stop-color="#0075FF" stop-opacity="0.1"/>
+                </linearGradient>
+            </defs>
+        </svg>
+    </div>
 
     <!-- Token Economy with Hexagon Pattern -->
     <section id="token" class="relative min-h-screen flex items-center justify-center py-20">
@@ -337,8 +373,8 @@
         <div class="max-w-screen-xl mx-auto px-4 relative">
             <!-- Header -->
             <div class="text-center mb-16 animate-fadeIn" style="animation-delay: 0.2s">
-                <h1 class="text-5xl font-bold text-white mb-4">$SIGNET Token Economy</h1>
-                <p class="text-gray-400 text-xl max-w-2xl mx-auto">
+                <h1 class="text-5xl font-bold text-white mb-4 section-title">$SIGNET Token Economy</h1>
+                <p class="text-gray-400 text-xl max-w-2xl mx-auto section-description">
                     Fuel the next generation of blockchain insights with $SIGNET—your gateway to creating, earning, and innovating in our signal ecosystem.
                 </p>
             </div>
@@ -369,7 +405,7 @@
                     </div>
                     <div class="glow-effect">
                         <h2 class="text-2xl font-bold text-white mt-6 mb-2">Marketplace Access</h2>
-                        <p class="text-gray-400">Monetize your bots by listing them on the marketplace. Set subscription prices in $SIGNET, allowing users to access your bot’s calls while you earn passive income.</p>
+                        <p class="text-gray-400">Monetize your bots by listing them on the marketplace. Set subscription prices in $SIGNET, allowing users to access your bot's calls while you earn passive income.</p>
                     </div>
                 </article>
         
@@ -388,9 +424,7 @@
                 </article>
             </div>
         </div>
-        
     </section>
-        
 
     <!-- Roadmap Section with Cyber Grid -->
     <section id="roadmap" class="relative py-32">
@@ -412,8 +446,8 @@
         <div class="container mx-auto px-6 relative">
             <!-- Roadmap Content -->
             <div class="text-center mb-20">
-                <h2 class="text-5xl font-bold mb-6">The Future of $SIGNET: A Global Trading Powerhouse</h2>
-                <p class="text-xl text-gray-400 max-w-3xl mx-auto">
+                <h2 class="text-5xl font-bold mb-6 section-title">The Future of $SIGNET: A Global Trading Powerhouse</h2>
+                <p class="text-xl text-gray-400 max-w-3xl mx-auto section-description">
                     A transformative roadmap to establish $SIGNET as the ultimate trading platform—empowering traders worldwide with cutting-edge AI and a thriving social ecosystem.
                 </p>
             </div>
@@ -447,7 +481,6 @@
                         </li>
                     </ul>
                 </div>
-        
                 <!-- Phase 2 -->
                 <div class="roadmap-item gradient-border rounded-2xl p-8 relative">
                     <div class="absolute top-4 right-4">
@@ -515,7 +548,7 @@
                     <p class="text-gray-400 mb-4">Year 2+</p>
                     <ul class="space-y-3 text-gray-300">
                         <li class="flex items-start gap-2">
-                            <svg class="w-5 h-5 mt-1 text-pink-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <svg class="w-5 h-5 h-5 mt-1 text-pink-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
                             </svg>
                             <span>Establish $SIGNET as the essential tool for global traders</span>
@@ -535,9 +568,6 @@
                     </ul>
                 </div>
             </div>
-        </div>
-        
-        
 
             <!-- Future Phases Button -->
             <div class="text-center mt-16">
@@ -546,7 +576,7 @@
                         Create Your BOT
                     </button>
                 </a>
-             </div>
+            </div>
         </div>
     </section>
 
@@ -583,11 +613,30 @@
                 </div>
             </div>
         </div>
-     </footer>
+    </footer>
 
     <script>
         // Initialize GSAP
         gsap.registerPlugin(ScrollTrigger);
+
+        // Section title and description animations
+        const sectionTitles = document.querySelectorAll('.section-title');
+        const sectionDescriptions = document.querySelectorAll('.section-description');
+
+        function setupIntersectionObserver(elements, className) {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add(className);
+                    }
+                });
+            }, { threshold: 0.1 });
+
+            elements.forEach(element => observer.observe(element));
+        }
+
+        setupIntersectionObserver(sectionTitles, 'fade-in-title');
+        setupIntersectionObserver(sectionDescriptions, 'fade-in-description');
 
         // Stats Section Animation
         const statCards = document.querySelectorAll('.stat-card');
@@ -620,7 +669,7 @@
             });
         });
 
-        // Super simple token animations
+        // Token animations
         gsap.from(".card1", {
             x: -100,
             opacity: 0,
@@ -665,7 +714,7 @@
             });
         });
 
-        // Roadmap items animation (existing)
+        // Roadmap items animation
         const roadmapItems = document.querySelectorAll('.roadmap-item');
         roadmapItems.forEach((item, index) => {
             gsap.from(item, {
@@ -680,7 +729,6 @@
                 }
             });
         });
-    </script>
     </script>
 </body>
 </html>
