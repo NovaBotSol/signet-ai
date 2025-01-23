@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="assets/signetlogo.png">
     <title>SIGNET AI Marketplace</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/@solana/web3.js@latest/lib/index.iife.min.js"></script>
@@ -110,28 +111,29 @@
     </div>
 </div>
     <!-- Navigation -->
-    <nav class="fixed w-full z-50">
-        <div class="glassmorphic">
-            <div class="container mx-auto px-6">
-                <div class="flex items-center justify-between h-20">
-                    <div class="flex items-center gap-8">
-                        <a href="index.html">
-                            <div class="chakra text-2xl font-bold text-white">
-                                SIGNET<span class="glow-text">AI</span>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="hidden md:flex items-center space-x-12">
-                        <a href="configure.html">
-                            <button class="bg-gradient-to-r from-green-600 to-blue-600 px-6 py-2 rounded-full hover:opacity-90 transition-opacity">
-                                Create Your BOT
-                            </button>
-                        </a>
-                    </div>
+<nav class="fixed w-full z-50">
+    <div class="glassmorphic">
+        <div class="container mx-auto px-6">
+            <div class="flex items-center justify-between h-20">
+                <div class="flex items-center gap-8">
+                    <a href="index.html" class="flex items-center">
+                        <img src="assets/signetlogo.png" alt="SIGNET AI Logo" class="h-8 w-8 mr-3">
+                        <div class="chakra text-2xl font-bold text-white">
+                            SIGNET<span class="glow-text">AI</span>
+                        </div>
+                    </a>
+                </div>
+                <div class="hidden md:flex items-center space-x-12">
+                    <a href="configure.html">
+                        <button class="bg-gradient-to-r from-green-600 to-blue-600 px-6 py-2 rounded-full hover:opacity-90 transition-opacity">
+                            Create Your BOT
+                        </button>
+                    </a>
                 </div>
             </div>
         </div>
-     </nav>
+    </div>
+</nav>
 
     <!-- Marketplace Header -->
     <section class="pt-32 pb-16">
