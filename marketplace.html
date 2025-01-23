@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SIGNET AI Marketplace</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/@solana/web3.js@latest/lib/index.iife.min.js"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap');
 
@@ -57,9 +58,57 @@
             color: #EF4444;
             text-shadow: 0 0 10px rgba(239, 68, 68, 0.2);
         }
+
+        .modal-backdrop {
+    background: rgba(0, 0, 0, 0.7);
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 100;
+}
+
+.modal {
+    background: var(--dark);
+    border: 1px solid rgba(34, 197, 94, 0.2);
+    border-radius: 12px;
+    padding: 24px;
+    max-width: 400px;
+    width: 90%;
+}
+
+.modal-active {
+    display: flex;
+}
     </style>
 </head>
 <body>
+
+    <!-- Wallet Connect Modal -->
+<div id="walletModal" class="modal-backdrop">
+    <div class="modal">
+        <h3 class="text-xl font-bold mb-4">Connect Wallet</h3>
+        <p class="text-gray-400 mb-6">Please connect your wallet to continue</p>
+        <button onclick="connectWallet()" class="w-full bg-gradient-to-r from-green-600 to-blue-600 px-6 py-3 rounded-lg hover:opacity-90 transition-opacity">
+            Connect Phantom Wallet
+        </button>
+    </div>
+</div>
+
+<!-- Token Balance Modal -->
+<div id="tokenModal" class="modal-backdrop">
+    <div class="modal">
+        <h3 class="text-xl font-bold mb-4">Insufficient Balance</h3>
+        <p class="text-gray-400 mb-6">Your wallet has 0 $SIGNET. Your wallet must have $SIGNET to buy signals.</p>
+        <button onclick="closeTokenModal()" class="w-full bg-gradient-to-r from-green-600 to-blue-600 px-6 py-3 rounded-lg hover:opacity-90 transition-opacity">
+            Close
+        </button>
+    </div>
+</div>
     <!-- Navigation -->
     <nav class="fixed w-full z-50">
         <div class="glassmorphic">
@@ -430,5 +479,45 @@
             </div>
         </div>
     </section>
+    <script src="https://unpkg.com/@solana/web3.js@latest/lib/index.iife.min.js"></script>
+    <script>
+        let wallet = null;
+    
+        async function connectWallet() {
+            try {
+                const isPhantomInstalled = window.phantom?.solana?.isPhantom;
+                
+                if (!isPhantomInstalled) {
+                    window.open("https://phantom.app/", "_blank");
+                    return;
+                }
+    
+                const provider = window.phantom?.solana;
+                const response = await provider.connect();
+                wallet = response.publicKey.toString();
+                
+                document.getElementById('walletModal').classList.remove('modal-active');
+                document.getElementById('tokenModal').classList.add('modal-active');
+    
+            } catch (err) {
+                console.error('Error connecting to wallet:', err);
+                alert('Failed to connect wallet');
+            }
+        }
+    
+        function closeTokenModal() {
+            document.getElementById('tokenModal').classList.remove('modal-active');
+        }
+    
+        document.querySelectorAll('.bot-card').forEach(card => {
+            card.addEventListener('click', () => {
+                if (!wallet) {
+                    document.getElementById('walletModal').classList.add('modal-active');
+                } else {
+                    document.getElementById('tokenModal').classList.add('modal-active');
+                }
+            });
+        });
+    </script>
 </body>
 </html>
